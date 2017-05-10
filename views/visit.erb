@@ -1,3 +1,13 @@
+<script type="text/javascript">  
+  $(function() {                                                                   
+    $('#test-id-1').css('background-color','yellow');
+    $('#test-id-2').css('color','red');
+    $('.test-class-1').css('color','blue');
+  
+    $('#color').simplecolorpicker();
+  })
+</script>
+
 <h2>Check in</h2>
 
 <form  action="/visit" method="POST">
@@ -26,7 +36,7 @@
     </select>
   </div>  
 
-  <div class="form-group">
+  <div class="form-group">                                                                             <!-- colorpicker -->
     <label>Color:</label>  
     <select id="color" name="color">
       <option value="#7bd148">Green</option>
@@ -49,10 +59,3 @@
   </div>
 
 </form>
-<script type="text/javascript">
-  $('#test-id-1').css('background-color','yellow');
-  $('#test-id-2').css('color','red');
-  $('.test-class-1').css('color','blue');
-
-  $('#color').simplecolorpicker();
-</script>
