@@ -65,6 +65,7 @@ post '/admin' do
 	@login = params[:login]
 	@pass = params[:pass]
 
+
 	if @login == 'admin' && @pass == '123'
 		erb :list
 	else
@@ -83,9 +84,10 @@ post '/visit' do
 	@number = params[:number]
 	@comments = params[:comments]
 	@barber = params[:barber]
+	@color = params[:color]
 
 	input = File.open "./public/visits.txt", "a"
-	input.write "Client: #{@name} <br> Cell: #{@number} <br> Comment: #{@comments} <br> Barber: #{@barber}<br><br>" 
+	input.write "Client: #{@name} <br> Cell: #{@number} <br> Comment: #{@comments} <br> Barber: #{@barber} <br> Color: #{@color} <br><br>" 
 	input.close
 	erb :visit
 
