@@ -2,23 +2,23 @@
 
 <form  action="/visit" method="POST">
   <div class="form-group">
-    <label>Name</label>
-    <input name="name" type="text" class="form-control" placeholder="type your name">
+    <label id="test-id-2">Name</label>                                                                <!-- id -->
+    <input name="name" type="text" class="form-control" placeholder="type your name" >
   </div>
 
   <div class="form-group">
     <label>Number</label>
-    <input name="number" type="text" class="form-control" placeholder="cell number">
+    <input name="number" type="text" class="form-control test-class-1" placeholder="cell number">    <!-- class -->
   </div>
    
-  <div class="form-group">
+  <div class="form-group" >
     <label>Comments</label>
     <input name="comments" type="text" class="form-control" placeholder="enter comment">
   </div>
 
   <div class="form-group">
-  <label>Choose your barber:</label>
-    <select name="barber"class="form-control">
+  <label>Choose your barber:</label>  
+    <select name="barber"class="form-control" id="test-id-1">                                         <!-- id -->
       <option> </option>
       <option>Vasya</option>
       <option>Roman</option>
@@ -28,4 +28,9 @@
   <input type="submit" value = "checkin" class="btn btn-primary"/>
  
 </form>
- <script type="text/javascript">alert ('Visit page');</script>
+
+<script type="text/javascript">
+  $('#test-id-1').css('background-color','yellow');
+  $('#test-id-2').css('color','red');
+  $('.test-class-1').css('color','blue');
+</script>
