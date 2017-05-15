@@ -1,2 +1,2 @@
-# RubyLesson23.0
+# RubyLesson24.0
 ruby

@@ -31,18 +31,25 @@ end
 #-----------------------------------------------
 get '/login' do	
 	erb :login
+
 end
 #gets login info from login.erb / sets session id and password
 #---------------------------------------------------------------
 post '/login' do
-	session[:id] = params[:login]
-	session[:pass] = params[:pass]
-	erb :about
+	session[:id] = params[:login].strip
+	session[:pass] = params[:pass].strip
+	if session[:id] == '' || session[:pass] == ''
+		@error = 'empty form'
+		erb :login
+	else
+		erb :about
+	end
 end
 
 #if not logged in - redirects to login form / else - opens about.erb
 #--------------------------------------------------------------------
 get '/about' do
+	@error = 'smth is wrong'
 	loggedin :about
 end
 
