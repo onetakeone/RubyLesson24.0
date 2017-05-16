@@ -1,7 +1,7 @@
 <h2>Leave message</h2>
 <form action='/contact' method='post' class="form-inline well">
-	<textarea rows="1" name="email" placeholder="email or name"></textarea><br>
-	<textarea rows="3" name="message" placeholder="message"></textarea>
+	<textarea rows="1" name="email" placeholder="email or name" value="<%= @email %>"></textarea><br>
+	<textarea rows="3" name="message" placeholder="message" value="<%= @message %>"></textarea>
 	<input type='submit' class="btn primary">
 </form>
 

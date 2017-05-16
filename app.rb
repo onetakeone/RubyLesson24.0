@@ -25,6 +25,7 @@ get '/' do
 	else
 		erb :about
 	end
+
 end
 
 #requesting login form - directs to login.erb
@@ -42,6 +43,7 @@ post '/login' do
 	
 	@error = loginarr.select {|key, _| params[key] == "" }.values.join(", ")
 	if @error != ''
+		session[:id] = nil
 		erb :login
 	else
 		erb :about
@@ -52,7 +54,6 @@ end
 #if not logged in - redirects to login form / else - opens about.erb
 #--------------------------------------------------------------------
 get '/about' do
-	@error = 'smth is wrong'
 	loggedin :about
 end
 
@@ -97,20 +98,18 @@ post '/visit' do
 	@barber = params[:barber]
 	@color = params[:color]
 
-	input = File.open "./public/visits.txt", "a"
-	input.write "Client: #{@name} <br> Cell: #{@number} <br> Comment: #{@comments} <br> Barber: #{@barber} <br> Color: #{@color} <br><br>" 
-	input.close
-
-
 	array = { :name => "name?", :number => "number?" }
-
 	@error = array.select {|key,_| params[key] == "" }.values.join(", ")
-
 	if @error != ''
 		erb :visit
+	else
+		input = File.open "./public/visits.txt", "a"
+		input.write "Client: #{@name} <br> Cell: #{@number} <br> Comment: #{@comments} <br> Barber: #{@barber} <br> Color: #{@color} <br><br>" 
+		input.close
+		
+		erb :about
+			
 	end
-	
-
 end
 
 #CONTACT
@@ -123,10 +122,18 @@ post '/contact' do
 	@email = params[:email]
 	@message = params[:message]
 
-	messinput = File.open "./public/messages.txt", "a"
-	messinput.write "#{@email} <br> #{@message}<br><br>" 
-	messinput.close
-	erb :contact
+	contactarr = { :email => "enter email", :message => "enter message" }
+	@error = contactarr.select {|key, _| params[key] == ""}.values.join(", ")
+	if @error != ''
+		erb :contact
+	else
+		messinput = File.open "./public/messages.txt", "a"
+		messinput.write "#{@email} <br> #{@message}<br><br>" 
+		messinput.close
+		erb :about
+	end
+
+	
 end
 
 #LOGOUT
