@@ -31,19 +31,22 @@ end
 #-----------------------------------------------
 get '/login' do	
 	erb :login
-
 end
+
 #gets login info from login.erb / sets session id and password
 #---------------------------------------------------------------
 post '/login' do
-	session[:id] = params[:login].strip
-	session[:pass] = params[:pass].strip
-	if session[:id] == '' || session[:pass] == ''
-		@error = 'empty form'
+	session[:id] = params[:login]
+	session[:pass] = params[:pass]
+	loginarr = { :login => "enter login", :pass => "enter pass" }
+	
+	@error = loginarr.select {|key, _| params[key] == "" }.values.join(", ")
+	if @error != ''
 		erb :login
 	else
 		erb :about
 	end
+	
 end
 
 #if not logged in - redirects to login form / else - opens about.erb
@@ -87,6 +90,7 @@ get '/visit' do
 end
 
 post '/visit' do
+
 	@name = params[:name]
 	@number = params[:number]
 	@comments = params[:comments]
@@ -96,7 +100,16 @@ post '/visit' do
 	input = File.open "./public/visits.txt", "a"
 	input.write "Client: #{@name} <br> Cell: #{@number} <br> Comment: #{@comments} <br> Barber: #{@barber} <br> Color: #{@color} <br><br>" 
 	input.close
-	erb :visit
+
+
+	array = { :name => "name?", :number => "number?" }
+
+	@error = array.select {|key,_| params[key] == "" }.values.join(", ")
+
+	if @error != ''
+		erb :visit
+	end
+	
 
 end
 
