@@ -1,2 +1,2 @@
-
-public/visits\.txt
+*.swp
+.DS_Store

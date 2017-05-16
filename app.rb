@@ -3,6 +3,7 @@ require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader'
 
+
 #enable sessions
 #---------------------------------
 configure do
@@ -119,19 +120,38 @@ get '/contact' do
 end
 
 post '/contact' do
+#	@name = params[:name]
 	@email = params[:email]
-	@message = params[:message]
+#	@message = params[:message]
+require 'pony'
 
-	contactarr = { :email => "enter email", :message => "enter message" }
-	@error = contactarr.select {|key, _| params[key] == ""}.values.join(", ")
-	if @error != ''
-		erb :contact
-	else
-		messinput = File.open "./public/messages.txt", "a"
-		messinput.write "#{@email} <br> #{@message}<br><br>" 
-		messinput.close
-		erb :about
-	end
+Pony.mail(	
+    	:to => 'limepassion@gmail.com',
+    	:from => params[:email],
+  		:body => params[:message],
+  		:subject => params[:name] + " has contacted you",
+   		:via => :smtp,
+  		:via_options => { 
+    		:address              => 'smtp.gmail.com', 
+    		:port                 => '587', 
+    		:enable_starttls_auto => true, 
+    		:user_name            => 'limepassion', 
+    		:password             => '1e7loki777', 
+    		:authentication       => :plain, 
+    		:domain               => 'localhost.localdomain'
+		  })
+erb :contact
+
+#	contactarr = { :email => "enter email", :message => "enter message" }
+#	@error = contactarr.select {|key, _| params[key] == ""}.values.join(", ")
+#	if @error != ''
+#		erb :contact
+#	else
+#		messinput = File.open "./public/messages.txt", "a"
+#		messinput.write "#{@email} <br> #{@message}<br><br>" 
+#		messinput.close
+#		erb :about
+#	end
 
 	
 end
