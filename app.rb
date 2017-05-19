@@ -2,7 +2,7 @@
 require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader'
-
+require 'SQLite3'
 
 #enable sessions
 #---------------------------------
@@ -69,6 +69,14 @@ get '/admin' do
 	else
 		erb :admin
 	end
+
+	db = SQLite3::Database.new("SQLBase/records.sqlite3")
+
+	db.execute "SELECT * FROM Records" do |var|
+		puts var
+		puts "===="
+	end
+	db.close
 end
 
 post '/admin' do
